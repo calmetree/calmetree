@@ -3,23 +3,30 @@
 <head>
   <meta charset="utf-8">
   
-  <title>拔草 | calmet&#39;s Blog</title>
+  <title>扯扯NB-IOT | calmet&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="calmet,calmet's Blog" />
   
-  <meta name="description" content="心痒痒GitHub的blog很久了，终于进来拔草，hoho，来个图镇楼！">
+  <meta name="description" content="今年是AI技术大爆发元年，但通信领域也不甘寂寞，物联网技术经过一段时间的累计，从需求侧开始撬动研发投入。NB-IOT就是典型的例子之一。">
+<meta name="keywords" content="技术">
 <meta property="og:type" content="article">
-<meta property="og:title" content="拔草">
-<meta property="og:url" content="http://calmet.space/2017/11/07/拔草/index.html">
+<meta property="og:title" content="扯扯NB-IOT">
+<meta property="og:url" content="http://calmet.space/2017/11/08/扯扯NB-IOT/index.html">
 <meta property="og:site_name" content="calmet&#39;s Blog">
-<meta property="og:description" content="心痒痒GitHub的blog很久了，终于进来拔草，hoho，来个图镇楼！">
-<meta property="og:image" content="http://calmet.space/2017/11/07/拔草/fe97e480ec40960d738ac9e643ac1572.jpg">
-<meta property="og:updated_time" content="2017-11-07T14:42:58.785Z">
+<meta property="og:description" content="今年是AI技术大爆发元年，但通信领域也不甘寂寞，物联网技术经过一段时间的累计，从需求侧开始撬动研发投入。NB-IOT就是典型的例子之一。">
+<meta property="og:image" content="http://calmet.space/2017/11/08/扯扯NB-IOT/NBIOT3mod.PNG">
+<meta property="og:image" content="http://calmet.space/2017/11/08/扯扯NB-IOT/Downlink.PNG">
+<meta property="og:image" content="http://calmet.space/2017/11/08/扯扯NB-IOT/Uplink.PNG">
+<meta property="og:image" content="http://calmet.space/2017/11/08/扯扯NB-IOT/NPDCCH.monitor.PNG">
+<meta property="og:image" content="http://calmet.space/2017/11/08/扯扯NB-IOT/Uplink3750.PNG">
+<meta property="og:image" content="http://calmet.space/2017/11/08/扯扯NB-IOT/NB.vs.Lora.PNG">
+<meta property="og:image" content="http://calmet.space/2017/11/08/扯扯NB-IOT/NB_UL_general.png">
+<meta property="og:updated_time" content="2017-11-08T13:48:17.663Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="拔草">
-<meta name="twitter:description" content="心痒痒GitHub的blog很久了，终于进来拔草，hoho，来个图镇楼！">
-<meta name="twitter:image" content="http://calmet.space/2017/11/07/拔草/fe97e480ec40960d738ac9e643ac1572.jpg">
+<meta name="twitter:title" content="扯扯NB-IOT">
+<meta name="twitter:description" content="今年是AI技术大爆发元年，但通信领域也不甘寂寞，物联网技术经过一段时间的累计，从需求侧开始撬动研发投入。NB-IOT就是典型的例子之一。">
+<meta name="twitter:image" content="http://calmet.space/2017/11/08/扯扯NB-IOT/NBIOT3mod.PNG">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -96,20 +103,20 @@
     </div>
 </header>
       <div class="outer">
-        <section id="main" class="body-wrap"><article id="post-拔草" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main" class="body-wrap"><article id="post-扯扯NB-IOT" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="post-title" itemprop="name">
-      拔草
+      扯扯NB-IOT
     </h1>
     <div class="post-title-bar">
       <ul>
           
         <li>
-          <i class="fa fa-calendar"></i>  2017-11-07
+          <i class="fa fa-calendar"></i>  2017-11-08
         </li>
         <li>
           <i class="fa fa-eye"></i>
@@ -125,12 +132,22 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            <p>心痒痒GitHub的blog很久了，终于进来拔草，hoho，来个图镇楼！<br><a id="more"></a><br><img src="/2017/11/07/拔草/fe97e480ec40960d738ac9e643ac1572.jpg" alt=""></p>
+            <p>今年是AI技术大爆发元年，但通信领域也不甘寂寞，物联网技术经过一段时间的累计，从需求侧开始撬动研发投入。<br>NB-IOT就是典型的例子之一。<br><a id="more"></a></p>
+<p>事实上，本文并不打算详细论述NB-IOT的各个细节。下面分享几张对理解NB能起到关键引导的几张图</p>
+<h3 id="NB-IOT的3种布网模式"><a href="#NB-IOT的3种布网模式" class="headerlink" title="NB-IOT的3种布网模式"></a>NB-IOT的3种布网模式</h3><p><img src="/2017/11/08/扯扯NB-IOT/NBIOT3mod.PNG" alt=""><br>三种布局模式对于终端物理层而言，基本上没什么区别，不过RF特性会有所不同。</p>
+<h3 id="下行基本工作时序"><a href="#下行基本工作时序" class="headerlink" title="下行基本工作时序"></a>下行基本工作时序</h3><p><img src="/2017/11/08/扯扯NB-IOT/Downlink.PNG" alt=""><br>遵守NPDCCH+NPDSCH+重传的模式</p>
+<h3 id="上行基本工作时序"><a href="#上行基本工作时序" class="headerlink" title="上行基本工作时序"></a>上行基本工作时序</h3><p><img src="/2017/11/08/扯扯NB-IOT/Uplink.PNG" alt=""><br>也是NPDCCH+NPUSCH+重复传输，不过由于需要终端跟网络侧对齐timing，因此跟下行稍稍有区别的是，连续发送久了，需要进入下行接收同步GAP。</p>
+<p>深刻理解了上面两个图，思考一下背后的因素，会发现什么？</p>
+<h3 id="半双工！"><a href="#半双工！" class="headerlink" title="半双工！"></a>半双工！</h3><p>不同于传统的LTE，在NB中，通信按照半双工的方式进行，同一时刻只有DL或者UP，NPDCCH需要占用一个TTI。<br>这样对于NPDCCH的监听而言，则有了新的需求：<br><img src="/2017/11/08/扯扯NB-IOT/NPDCCH.monitor.PNG" alt=""></p>
+<p>NB中的新招式</p>
+<h2 id="NB中新的资源布局"><a href="#NB中新的资源布局" class="headerlink" title="NB中新的资源布局"></a>NB中新的资源布局</h2><p>3.75K子载波，<br><img src="/2017/11/08/扯扯NB-IOT/Uplink3750.PNG" alt=""><br>对于NB中最大的更新，个人觉得莫过于上行3.75K子载波的工作方式。这个子载波格式的引入，对于上行发送的资源分配方式，信号生成复杂性都带来了<br>新的麻烦。而对于接收端，则更具有挑战性，或许这也是网络迟迟不更新，代价比预想的高出许多的因素之一。</p>
+<h3 id="NB-的竞争者"><a href="#NB-的竞争者" class="headerlink" title="NB 的竞争者"></a>NB 的竞争者</h3><p>事实上，NB才是后来的，被幕后各种推手推动。在此之前有不少类似的技术，zigbee，sogfix，Lora都能提供类似的覆盖和功能<br>对于非授权频段，已经企业私有网，Lora的竞争力不容忽视，后面有空再掰掰Lora。<br><img src="/2017/11/08/扯扯NB-IOT/NB.vs.Lora.PNG" alt=""></p>
+<p>本着分享的精神，本文最后会分享一张实际项目中使用得着的设计详图<br>经过实际项目验证：按照下图，实现NB的发送链路完全没有问题。拿去不谢！<br><img src="/2017/11/08/扯扯NB-IOT/NB_UL_general.png" alt=""></p>
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2017年11月07日 22:42</p>
-        <p>原始链接： <a class="post-url" href="/2017/11/07/拔草/" title="拔草">http://calmet.space/2017/11/07/拔草/</a></p>
+        <p>最后更新： 2017年11月08日 21:48</p>
+        <p>原始链接： <a class="post-url" href="/2017/11/08/扯扯NB-IOT/" title="扯扯NB-IOT">http://calmet.space/2017/11/08/扯扯NB-IOT/</a></p>
         <footer>
             <a href="http://calmet.space">
                 <img src="/images/logo.png" alt="calmet">
@@ -152,7 +169,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://calmet.space/2017/11/07/拔草/&title=《拔草》 — calmet's Blog&pic=images/12fe887e058ffbbf1699a9ce38a7a45d.jpg" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://calmet.space/2017/11/08/扯扯NB-IOT/&title=《扯扯NB-IOT》 — calmet's Blog&pic=images/iot.png" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -162,22 +179,22 @@
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://calmet.space/2017/11/07/拔草/&title=《拔草》 — calmet's Blog&source=心痒痒GitHub的blog很久了，终于进来拔草，hoho，来个图镇楼！" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://calmet.space/2017/11/08/扯扯NB-IOT/&title=《扯扯NB-IOT》 — calmet's Blog&source=今年是AI技术大爆发元年，但通信领域也不甘寂寞，物联网技术经过一段时间的累计，从需求侧开始撬动研发投入。NB-IOT就是典型的例子之一。" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
           <li>
-            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://calmet.space/2017/11/07/拔草/" data-title="Facebook">
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://calmet.space/2017/11/08/扯扯NB-IOT/" data-title="Facebook">
               <i class="fa fa-facebook"></i>
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《拔草》 — calmet's Blog&url=http://calmet.space/2017/11/07/拔草/&via=http://calmet.space" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《扯扯NB-IOT》 — calmet's Blog&url=http://calmet.space/2017/11/08/扯扯NB-IOT/&via=http://calmet.space" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
           <li>
-            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://calmet.space/2017/11/07/拔草/" data-title="Google+">
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://calmet.space/2017/11/08/扯扯NB-IOT/" data-title="Google+">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -187,7 +204,7 @@
 <div class="post-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;" id="wxShare-close">×</a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://calmet.space/2017/11/07/拔草/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://calmet.space/2017/11/08/扯扯NB-IOT/" alt="微信分享二维码">
 </div>
 
 <div class="mask"></div>
@@ -196,6 +213,13 @@
         <ul class="article-footer-menu">
             
             
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/技术/" class="color3">技术</a>
+      
+  </li>
+
         </ul>
         
     </footer>
@@ -203,22 +227,18 @@
 </article>
 
 
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#NB-IOT的3种布网模式"><span class="post-toc-text">NB-IOT的3种布网模式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#下行基本工作时序"><span class="post-toc-text">下行基本工作时序</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#上行基本工作时序"><span class="post-toc-text">上行基本工作时序</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#半双工！"><span class="post-toc-text">半双工！</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#NB中新的资源布局"><span class="post-toc-text">NB中新的资源布局</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#NB-的竞争者"><span class="post-toc-text">NB 的竞争者</span></a></li></ol>
+        </nav>
+    </aside>
+    
 
 <nav id="article-nav">
   
-    <a href="/2017/11/07/嗯，基本会了/" id="article-nav-newer" class="article-nav-link-wrap">
-
-      <span class="article-nav-title">
-        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
-        
-          嗯，基本会了
-        
-      </span>
-    </a>
   
-  
-    <a href="/2017/11/05/2017完成书单/" id="article-nav-older" class="article-nav-link-wrap">
-      <span class="article-nav-title">2017完成书单</span>
+    <a href="/2017/11/07/嗯，基本会了/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">嗯，基本会了</span>
       <i class="fa fa-hand-o-right" aria-hidden="true"></i>
     </a>
   
