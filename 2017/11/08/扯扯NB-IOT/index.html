@@ -22,7 +22,7 @@
 <meta property="og:image" content="http://calmet.space/2017/11/08/扯扯NB-IOT/Uplink3750.PNG">
 <meta property="og:image" content="http://calmet.space/2017/11/08/扯扯NB-IOT/NB.vs.Lora.PNG">
 <meta property="og:image" content="http://calmet.space/2017/11/08/扯扯NB-IOT/NB_UL_general.png">
-<meta property="og:updated_time" content="2017-11-08T13:59:25.621Z">
+<meta property="og:updated_time" content="2017-11-08T14:02:08.509Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="扯扯NB-IOT">
 <meta name="twitter:description" content="今年是AI技术大爆发元年，但通信领域也不甘寂寞，物联网技术经过一段时间的累计，从需求侧开始撬动研发投入。NB-IOT就是典型的例子之一。">
@@ -141,12 +141,12 @@
 <h3 id="半双工！"><a href="#半双工！" class="headerlink" title="半双工！"></a>半双工！</h3><p>不同于传统的LTE，在NB中，通信按照半双工的方式进行，同一时刻只有DL或者UP，NPDCCH需要占用一个TTI。<br>这样对于NPDCCH的监听而言，则有了新的需求：<br><img src="/2017/11/08/扯扯NB-IOT/NPDCCH.monitor.PNG" alt=""></p>
 <p>NB中的新招式</p>
 <h2 id="NB中新的资源布局"><a href="#NB中新的资源布局" class="headerlink" title="NB中新的资源布局"></a>NB中新的资源布局</h2><p>3.75K子载波，<br><img src="/2017/11/08/扯扯NB-IOT/Uplink3750.PNG" alt=""><br>对于NB中最大的更新，个人觉得莫过于上行3.75K子载波的工作方式。这个子载波格式的引入，对于上行发送的资源分配方式，信号生成复杂性都带来了新的麻烦。而对于接收端，则更具有挑战性，或许这也是网络迟迟不更新，代价比预想的高出许多的因素之一。</p>
-<h3 id="NB-的竞争者"><a href="#NB-的竞争者" class="headerlink" title="NB 的竞争者"></a>NB 的竞争者</h3><p>事实上，NB才是后来的，被幕后各种推手推动。在此之前有不少类似的技术，zigbee，sogfix，Lora都能提供类似的覆盖和功能对于非授权频段，已经企业私有网，Lora的竞争力不容忽视，后面有空再掰掰Lora。<br><img src="/2017/11/08/扯扯NB-IOT/NB.vs.Lora.PNG" alt=""></p>
+<h3 id="NB-的竞争者"><a href="#NB-的竞争者" class="headerlink" title="NB 的竞争者"></a>NB 的竞争者</h3><p>事实上，NB才是后来的，被幕后各种推手推动。在此之前有不少类似的技术，zigbee，sogfix，Lora都能提供类似的覆盖和功能。<br>对于非授权频段，以及企业私有网，Lora的竞争力不容忽视，后面有空再掰掰Lora。<br><img src="/2017/11/08/扯扯NB-IOT/NB.vs.Lora.PNG" alt=""></p>
 <p>本着分享的精神，本文最后分享一张实际项目中使用得着的设计详图.<br>经过实际项目验证：按照下图，实现NB的发送链路完全没有问题。拿去不谢！<br><img src="/2017/11/08/扯扯NB-IOT/NB_UL_general.png" alt=""></p>
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2017年11月08日 21:59</p>
+        <p>最后更新： 2017年11月08日 22:02</p>
         <p>原始链接： <a class="post-url" href="/2017/11/08/扯扯NB-IOT/" title="扯扯NB-IOT">http://calmet.space/2017/11/08/扯扯NB-IOT/</a></p>
         <footer>
             <a href="http://calmet.space">
