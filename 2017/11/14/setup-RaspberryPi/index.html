@@ -3,23 +3,22 @@
 <head>
   <meta charset="utf-8">
   
-  <title>图片show | calmet&#39;s Blog</title>
+  <title>setup RaspberryPi | calmet&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="calmet,calmet's Blog" />
   
-  <meta name="description" content="试试">
+  <meta name="description" content="树莓派 重新扫灰前段时间，因为TF卡突然出现故障，树莓派down机了，上面的资料都没有恢复出来（哭），，，，这次准备重新开场！后面考虑TF+U盘的机制。防止内存卡再出故障">
+<meta name="keywords" content="技术">
 <meta property="og:type" content="article">
-<meta property="og:title" content="图片show">
-<meta property="og:url" content="http://calmet.space/2017/11/05/图片show/index.html">
+<meta property="og:title" content="setup RaspberryPi">
+<meta property="og:url" content="http://calmet.space/2017/11/14/setup-RaspberryPi/index.html">
 <meta property="og:site_name" content="calmet&#39;s Blog">
-<meta property="og:description" content="试试">
-<meta property="og:image" content="http://calmet.space/2017/11/05/图片show/beach.jpg">
-<meta property="og:updated_time" content="2017-11-05T14:34:27.666Z">
+<meta property="og:description" content="树莓派 重新扫灰前段时间，因为TF卡突然出现故障，树莓派down机了，上面的资料都没有恢复出来（哭），，，，这次准备重新开场！后面考虑TF+U盘的机制。防止内存卡再出故障">
+<meta property="og:updated_time" content="2017-11-14T14:53:55.068Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="图片show">
-<meta name="twitter:description" content="试试">
-<meta name="twitter:image" content="http://calmet.space/2017/11/05/图片show/beach.jpg">
+<meta name="twitter:title" content="setup RaspberryPi">
+<meta name="twitter:description" content="树莓派 重新扫灰前段时间，因为TF卡突然出现故障，树莓派down机了，上面的资料都没有恢复出来（哭），，，，这次准备重新开场！后面考虑TF+U盘的机制。防止内存卡再出故障">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -96,20 +95,27 @@
     </div>
 </header>
       <div class="outer">
-        <section id="main" class="body-wrap"><article id="post-图片show" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main" class="body-wrap"><article id="post-setup-RaspberryPi" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="post-title" itemprop="name">
-      图片show
+      setup RaspberryPi
     </h1>
     <div class="post-title-bar">
       <ul>
           
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/技术/">技术</a>
+                  
+              </li>
+          
         <li>
-          <i class="fa fa-calendar"></i>  2017-11-05
+          <i class="fa fa-calendar"></i>  2017-11-14
         </li>
         <li>
           <i class="fa fa-eye"></i>
@@ -125,14 +131,29 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            <p>试试</p>
-<a id="more"></a>
-<p>姐弟好啊<br><img src="/2017/11/05/图片show/beach.jpg" alt=""></p>
-
+            <p>树莓派 重新扫灰<br>前段时间，因为TF卡突然出现故障，树莓派down机了，上面的资料都没有恢复出来（哭），，，，这次准备重新开场！<br>后面考虑TF+U盘的机制。防止内存卡再出故障<br><a id="more"></a></p>
+<h3 id="setup-过程"><a href="#setup-过程" class="headerlink" title="setup 过程"></a>setup 过程</h3><pre><code>1. Down right image，burn to SD(stretch_lite版,简书)
+2. Enable ssh：create ssh file
+3. Ipscan，发现树莓派IP
+4. 启用root，并设置密码：sudo passwd root，编辑:/etc/ssh/sshd_config PermitRootLogin一行为yes
+5. vi /etc/dhcpcd.conf：配置静态IP，配置网关，路由
+6. 更改apt源
+    修改 sources.list
+    将 mirrordirector.raspbian.org 替换为 mirrors.aliyun.com/raspbian/ 。
+    修改 raspi.list
+    实际修改是，将 archive.raspberrypi.org 替换为 mirrors.aliyun.com
+    然后执行
+    apt-get update &amp;&amp; apt-get upgrade -y
+7. 安装图形界面 pixel/GUI
+8. 安装远程图形界面：apt-get install xrdp
+9. 配置samba（利用这个装花生壳）
+10. 配置花生壳客户端/配置内网穿透
+11. 配置数据库服务
+</code></pre>
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2017年11月05日 22:34</p>
-        <p>原始链接： <a class="post-url" href="/2017/11/05/图片show/" title="图片show">http://calmet.space/2017/11/05/图片show/</a></p>
+        <p>最后更新： 2017年11月14日 22:53</p>
+        <p>原始链接： <a class="post-url" href="/2017/11/14/setup-RaspberryPi/" title="setup RaspberryPi">http://calmet.space/2017/11/14/setup-RaspberryPi/</a></p>
         <footer>
             <a href="http://calmet.space">
                 <img src="/images/logo.png" alt="calmet">
@@ -154,7 +175,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://calmet.space/2017/11/05/图片show/&title=《图片show》 — calmet's Blog&pic=images/picshow_cover.jpg" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://calmet.space/2017/11/14/setup-RaspberryPi/&title=《setup RaspberryPi》 — calmet's Blog&pic=images/raspPi.png" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -164,22 +185,22 @@
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://calmet.space/2017/11/05/图片show/&title=《图片show》 — calmet's Blog&source=试试" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://calmet.space/2017/11/14/setup-RaspberryPi/&title=《setup RaspberryPi》 — calmet's Blog&source=树莓派 重新扫灰前段时间，因为TF卡突然出现故障，树莓派down机了，上面的资料都没有恢复出来（哭），，，，这次准备重新开场！后面考虑TF+U盘的机制。防..." data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
           <li>
-            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://calmet.space/2017/11/05/图片show/" data-title="Facebook">
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://calmet.space/2017/11/14/setup-RaspberryPi/" data-title="Facebook">
               <i class="fa fa-facebook"></i>
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《图片show》 — calmet's Blog&url=http://calmet.space/2017/11/05/图片show/&via=http://calmet.space" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《setup RaspberryPi》 — calmet's Blog&url=http://calmet.space/2017/11/14/setup-RaspberryPi/&via=http://calmet.space" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
           <li>
-            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://calmet.space/2017/11/05/图片show/" data-title="Google+">
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://calmet.space/2017/11/14/setup-RaspberryPi/" data-title="Google+">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -189,7 +210,7 @@
 <div class="post-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;" id="wxShare-close">×</a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://calmet.space/2017/11/05/图片show/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://calmet.space/2017/11/14/setup-RaspberryPi/" alt="微信分享二维码">
 </div>
 
 <div class="mask"></div>
@@ -198,6 +219,13 @@
         <ul class="article-footer-menu">
             
             
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/技术/" class="color3">技术</a>
+      
+  </li>
+
         </ul>
         
     </footer>
@@ -205,19 +233,20 @@
 </article>
 
 
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#setup-过程"><span class="post-toc-text">setup 过程</span></a></li></ol>
+        </nav>
+    </aside>
+    
 
 <nav id="article-nav">
   
-    <a href="/2017/11/05/2017完成书单/" id="article-nav-newer" class="article-nav-link-wrap">
-
-      <span class="article-nav-title">
-        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
-        
-          2017完成书单
-        
-      </span>
-    </a>
   
+    <a href="/2017/11/08/扯扯NB-IOT/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">扯扯NB-IOT</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
   
 </nav>
 
