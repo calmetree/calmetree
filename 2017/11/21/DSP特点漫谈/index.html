@@ -3,22 +3,22 @@
 <head>
   <meta charset="utf-8">
   
-  <title>setup RaspberryPi | calmet&#39;s Blog</title>
+  <title>DSP特点漫谈 | calmet&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="calmet,calmet's Blog" />
   
-  <meta name="description" content="树莓派 重新扫灰前段时间，因为TF卡突然出现故障，树莓派down机了，上面的资料都没有恢复出来（哭），，，，这次准备重新开场！后面考虑TF+U盘的机制。防止内存卡再出故障">
+  <meta name="description" content="本文准备从下面几个方面介绍一下DSP  硬件结构特点（架构，总线，扩展，加速器，中断） 指令特点 软件系统RTOS特点 CEVA DSP特点顺序可能会调整">
 <meta name="keywords" content="技术">
 <meta property="og:type" content="article">
-<meta property="og:title" content="setup RaspberryPi">
-<meta property="og:url" content="http://calmtree.cn/2017/11/14/setup-RaspberryPi/index.html">
+<meta property="og:title" content="DSP特点漫谈">
+<meta property="og:url" content="http://calmtree.cn/2017/11/21/DSP特点漫谈/index.html">
 <meta property="og:site_name" content="calmet&#39;s Blog">
-<meta property="og:description" content="树莓派 重新扫灰前段时间，因为TF卡突然出现故障，树莓派down机了，上面的资料都没有恢复出来（哭），，，，这次准备重新开场！后面考虑TF+U盘的机制。防止内存卡再出故障">
-<meta property="og:updated_time" content="2017-11-14T15:02:19.664Z">
+<meta property="og:description" content="本文准备从下面几个方面介绍一下DSP  硬件结构特点（架构，总线，扩展，加速器，中断） 指令特点 软件系统RTOS特点 CEVA DSP特点顺序可能会调整">
+<meta property="og:updated_time" content="2017-11-21T09:21:58.013Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="setup RaspberryPi">
-<meta name="twitter:description" content="树莓派 重新扫灰前段时间，因为TF卡突然出现故障，树莓派down机了，上面的资料都没有恢复出来（哭），，，，这次准备重新开场！后面考虑TF+U盘的机制。防止内存卡再出故障">
+<meta name="twitter:title" content="DSP特点漫谈">
+<meta name="twitter:description" content="本文准备从下面几个方面介绍一下DSP  硬件结构特点（架构，总线，扩展，加速器，中断） 指令特点 软件系统RTOS特点 CEVA DSP特点顺序可能会调整">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -95,27 +95,20 @@
     </div>
 </header>
       <div class="outer">
-        <section id="main" class="body-wrap"><article id="post-setup-RaspberryPi" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main" class="body-wrap"><article id="post-DSP特点漫谈" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="post-title" itemprop="name">
-      setup RaspberryPi
+      DSP特点漫谈
     </h1>
     <div class="post-title-bar">
       <ul>
           
-              <li>
-                  <i class="fa fa-book"></i>
-                  
-                      <a href="/categories/技术/">技术</a>
-                  
-              </li>
-          
         <li>
-          <i class="fa fa-calendar"></i>  2017-11-14
+          <i class="fa fa-calendar"></i>  2017-11-21
         </li>
         <li>
           <i class="fa fa-eye"></i>
@@ -131,30 +124,19 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            <p>树莓派 重新扫灰<br>前段时间，因为TF卡突然出现故障，树莓派down机了，上面的资料都没有恢复出来（哭），，，，这次准备重新开场！<br>后面考虑TF+U盘的机制。防止内存卡再出故障<br><a id="more"></a></p>
-<h3 id="setup-过程"><a href="#setup-过程" class="headerlink" title="setup 过程"></a>setup 过程</h3><p>记录一下，给自己，也给需要的同行们，省点精力</p>
-<pre><code>1. Down right image，burn to SD(stretch_lite版,简书)
-2. Enable ssh：create ssh file
-3. Ipscan，发现树莓派IP
-4. 启用root，并设置密码：sudo passwd root，编辑:/etc/ssh/sshd_config PermitRootLogin一行为yes
-5. vi /etc/dhcpcd.conf：配置静态IP，配置网关，路由
-6. 更改apt源
-    修改 sources.list
-    将 mirrordirector.raspbian.org 替换为 mirrors.aliyun.com/raspbian/ 。
-    修改 raspi.list
-    实际修改是，将 archive.raspberrypi.org 替换为 mirrors.aliyun.com
-    然后执行
-    apt-get update &amp;&amp; apt-get upgrade -y
-7. 安装图形界面 pixel/GUI
-8. 安装远程图形界面：apt-get install xrdp
-9. 配置samba（利用这个装花生壳）
-10. 配置花生壳客户端/配置内网穿透
-11. 配置数据库服务
-</code></pre>
+            <p>本文准备从下面几个方面介绍一下DSP</p>
+<ol>
+<li>硬件结构特点（架构，总线，扩展，加速器，中断）</li>
+<li>指令特点</li>
+<li>软件系统RTOS特点</li>
+<li>CEVA DSP特点<br>顺序可能会调整<a id="more"></a>
+<h2 id="硬件结构特点（架构，总线，扩展，加速器，中断）"><a href="#硬件结构特点（架构，总线，扩展，加速器，中断）" class="headerlink" title="硬件结构特点（架构，总线，扩展，加速器，中断）"></a>硬件结构特点（架构，总线，扩展，加速器，中断）</h2><h2 id="指令特点"><a href="#指令特点" class="headerlink" title="指令特点"></a>指令特点</h2><h2 id="软件系统RTOS特点"><a href="#软件系统RTOS特点" class="headerlink" title="软件系统RTOS特点"></a>软件系统RTOS特点</h2><h2 id="CEVA-DSP特点"><a href="#CEVA-DSP特点" class="headerlink" title="CEVA DSP特点"></a>CEVA DSP特点</h2></li>
+</ol>
+
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2017年11月14日 23:02</p>
-        <p>原始链接： <a class="post-url" href="/2017/11/14/setup-RaspberryPi/" title="setup RaspberryPi">http://calmtree.cn/2017/11/14/setup-RaspberryPi/</a></p>
+        <p>最后更新： 2017年11月21日 17:21</p>
+        <p>原始链接： <a class="post-url" href="/2017/11/21/DSP特点漫谈/" title="DSP特点漫谈">http://calmtree.cn/2017/11/21/DSP特点漫谈/</a></p>
         <footer>
             <a href="http://calmtree.cn">
                 <img src="/images/logo.png" alt="calmet">
@@ -176,7 +158,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://calmtree.cn/2017/11/14/setup-RaspberryPi/&title=《setup RaspberryPi》 — calmet's Blog&pic=images/raspPi.PNG" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://calmtree.cn/2017/11/21/DSP特点漫谈/&title=《DSP特点漫谈》 — calmet's Blog&pic=images/dsplogo.jpg" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -186,22 +168,27 @@
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://calmtree.cn/2017/11/14/setup-RaspberryPi/&title=《setup RaspberryPi》 — calmet's Blog&source=树莓派 重新扫灰前段时间，因为TF卡突然出现故障，树莓派down机了，上面的资料都没有恢复出来（哭），，，，这次准备重新开场！后面考虑TF+U盘的机制。防..." data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://calmtree.cn/2017/11/21/DSP特点漫谈/&title=《DSP特点漫谈》 — calmet's Blog&source=本文准备从下面几个方面介绍一下DSP
+
+硬件结构特点（架构，总线，扩展，加速器，中断）
+指令特点
+软件系统RTOS特点
+CEVA DSP特点顺序可能会调整" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
           <li>
-            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://calmtree.cn/2017/11/14/setup-RaspberryPi/" data-title="Facebook">
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://calmtree.cn/2017/11/21/DSP特点漫谈/" data-title="Facebook">
               <i class="fa fa-facebook"></i>
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《setup RaspberryPi》 — calmet's Blog&url=http://calmtree.cn/2017/11/14/setup-RaspberryPi/&via=http://calmtree.cn" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《DSP特点漫谈》 — calmet's Blog&url=http://calmtree.cn/2017/11/21/DSP特点漫谈/&via=http://calmtree.cn" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
           <li>
-            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://calmtree.cn/2017/11/14/setup-RaspberryPi/" data-title="Google+">
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://calmtree.cn/2017/11/21/DSP特点漫谈/" data-title="Google+">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -211,7 +198,7 @@
 <div class="post-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;" id="wxShare-close">×</a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://calmtree.cn/2017/11/14/setup-RaspberryPi/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://calmtree.cn/2017/11/21/DSP特点漫谈/" alt="微信分享二维码">
 </div>
 
 <div class="mask"></div>
@@ -236,26 +223,16 @@
 
     <aside class="post-toc-pos post-toc-top" id="post-toc">
         <nav class="post-toc-wrap">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#setup-过程"><span class="post-toc-text">setup 过程</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#硬件结构特点（架构，总线，扩展，加速器，中断）"><span class="post-toc-text">硬件结构特点（架构，总线，扩展，加速器，中断）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#指令特点"><span class="post-toc-text">指令特点</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#软件系统RTOS特点"><span class="post-toc-text">软件系统RTOS特点</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#CEVA-DSP特点"><span class="post-toc-text">CEVA DSP特点</span></a></li></ol>
         </nav>
     </aside>
     
 
 <nav id="article-nav">
   
-    <a href="/2017/11/21/DSP特点漫谈/" id="article-nav-newer" class="article-nav-link-wrap">
-
-      <span class="article-nav-title">
-        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
-        
-          DSP特点漫谈
-        
-      </span>
-    </a>
   
-  
-    <a href="/2017/11/08/扯扯NB-IOT/" id="article-nav-older" class="article-nav-link-wrap">
-      <span class="article-nav-title">扯扯NB-IOT</span>
+    <a href="/2017/11/14/setup-RaspberryPi/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">setup RaspberryPi</span>
       <i class="fa fa-hand-o-right" aria-hidden="true"></i>
     </a>
   
