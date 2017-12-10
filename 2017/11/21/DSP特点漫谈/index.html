@@ -29,7 +29,7 @@
 <meta property="og:image" content="http://calmtree.cn/2017/11/21/DSP特点漫谈/instructions.PNG">
 <meta property="og:image" content="http://calmtree.cn/2017/11/21/DSP特点漫谈/sature.PNG">
 <meta property="og:image" content="http://calmtree.cn/2017/11/21/DSP特点漫谈/fiexed.png">
-<meta property="og:updated_time" content="2017-12-10T08:47:25.419Z">
+<meta property="og:updated_time" content="2017-12-10T08:49:30.052Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DSP特点漫谈">
 <meta name="twitter:description" content="本文准备从下面几个方面介绍一下DSP  硬件结构特点（架构，总线，扩展，加速器，中断） 指令特点 软件系统RTOS特点 内存管理 陷阱及定点注意事项顺序可能会调整">
@@ -168,20 +168,14 @@
 <li>零开销循环<br>DSP算法普遍共同点特点：大多数处理时间花在执行较小的循环上。</li>
 <li>针对行业应用提供专用特殊指令，节省执行时间。</li>
 <li>流水线并行操作(多少并行依赖于具体的DSP实现)</li>
-<li>通常只支持定点操作，需要对代码进行定点化。<br>看个并行的实例<br><img src="/2017/11/21/DSP特点漫谈/instructions.PNG" alt=""><br>前后规划合理，可以保持一拍并行做4个字节的乘累加并且不中断！<h4 id="累加寄存器符号扩展编程陷阱（例子X1622）"><a href="#累加寄存器符号扩展编程陷阱（例子X1622）" class="headerlink" title="累加寄存器符号扩展编程陷阱（例子X1622）"></a>累加寄存器符号扩展编程陷阱（例子X1622）</h4><img src="/2017/11/21/DSP特点漫谈/sature.PNG" alt=""><h4 id="定点化注意事项"><a href="#定点化注意事项" class="headerlink" title="定点化注意事项"></a>定点化注意事项</h4>定点：通过整数来表示小数和整数<br><img src="/2017/11/21/DSP特点漫谈/fiexed.png" alt=""><br>• 符号位：0表示正数，1表示负数。<br>• 整数部分：小数点左边的数。<br>• 小数部分：小数点右边的数。</li>
-<li>为了防止数据损失，在未知数据确定范围的情况下，<pre><code>通常左顶格操作，保证最大精度
-</code></pre></li>
-<li>Floor函数，永远向下取整还是绝对值靠0取整？<pre><code>需要特别注意（-1/x永远为-1的问题），
-</code></pre></li>
-<li>除法转移位和乘法</li>
-<li>查表</li>
-<li>多项式，基数展开逼近</li>
-<li>……</li>
+<li>通常只支持定点操作，需要对代码进行定点化。<br>看个并行的实例<br><img src="/2017/11/21/DSP特点漫谈/instructions.PNG" alt=""><br>前后规划合理，可以保持一拍并行做4个字节的乘累加并且不中断！<h4 id="累加寄存器符号扩展编程陷阱（例子X1622）"><a href="#累加寄存器符号扩展编程陷阱（例子X1622）" class="headerlink" title="累加寄存器符号扩展编程陷阱（例子X1622）"></a>累加寄存器符号扩展编程陷阱（例子X1622）</h4><img src="/2017/11/21/DSP特点漫谈/sature.PNG" alt=""><h4 id="定点化注意事项"><a href="#定点化注意事项" class="headerlink" title="定点化注意事项"></a>定点化注意事项</h4>定点：通过整数来表示小数和整数<br><img src="/2017/11/21/DSP特点漫谈/fiexed.png" alt=""><br>• 符号位：0表示正数，1表示负数。<br>• 整数部分：小数点左边的数。<br>• 小数部分：小数点右边的数。<br>1..  为了防止数据损失，在未知数据确定范围的情况下，<pre><code>通常左顶格操作，保证最大精度
+</code></pre>2..  Floor函数，永远向下取整还是绝对值靠0取整？<pre><code>需要特别注意（-1/x永远为-1的问题），
+</code></pre>3..  除法转移位和乘法<br>4..  查表<br>5..  多项式，基数展开逼近<br>6..  ……</li>
 </ol>
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2017年12月10日 16:47</p>
+        <p>最后更新： 2017年12月10日 16:49</p>
         <p>原始链接： <a class="post-url" href="/2017/11/21/DSP特点漫谈/" title="DSP特点漫谈">http://calmtree.cn/2017/11/21/DSP特点漫谈/</a></p>
         <footer>
             <a href="http://calmtree.cn">
