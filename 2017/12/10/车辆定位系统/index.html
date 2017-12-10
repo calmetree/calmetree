@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://calmtree.cn/2017/12/10/车辆定位系统/new%20image%20-%200vq0k.jpg">
 <meta property="og:image" content="http://calmtree.cn/2017/12/10/车辆定位系统/new%20image%20-%209xzau.jpg">
 <meta property="og:image" content="http://calmtree.cn/2017/12/10/车辆定位系统/carTrail.jpg">
-<meta property="og:updated_time" content="2017-12-10T14:04:02.980Z">
+<meta property="og:updated_time" content="2017-12-10T14:05:11.397Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="车辆定位系统">
 <meta name="twitter:description" content="##实现车辆实时位置跟踪并微信端显示使用：Arduino+GPRS.GPS.module+raspberry.PI">
@@ -134,14 +134,14 @@
             <p>##实现车辆实时位置跟踪并微信端显示<br>使用：Arduino+GPRS.GPS.module+raspberry.PI<br><a id="more"></a><br>源码参见github:<a href="https://github.com/calmetree/carTrail.git" target="_blank" rel="external">https://github.com/calmetree/carTrail.git</a><br>github 源码说明：<br>server.py/updateCarPOs.py 利用树莓派做服务器接收GPS位置信息</p>
 <p>showCarPos.py 后端准备好当天的位置数据到html静态文件中（历史数据通过mysql数据库保存）</p>
 <p>showCarPos.html静态文件，利用前端百度api绘出当天车俩轨迹地图，通过树莓派假设的nginx静态服务器提供外部访问。</p>
-<p>carPos.ino 为arduino控制GRPS.GPS模块对应源代码</p>
+<p>carPos.ino 为arduino控制GRPS.GPS模块对应源代码（可通过短信实时通知，并通过手机短信控制实时更新系统参数）</p>
 <p>搭建系统使用到的各种神器拍图（附UART/及串接取电接线）</p>
 <p>arduino跟GPS/GPRS模块(UART连接)<br><img src="/2017/12/10/车辆定位系统/new image - wydgq.jpg" alt=""><br>GPRS/GPS模块装盒子里特写<br><img src="/2017/12/10/车辆定位系统/new image - sx9wv.jpg" alt=""><br>封装到盒子里，丑陋的线都遮挡起来<br><img src="/2017/12/10/车辆定位系统/new image - 1nfj9.jpg" alt=""><br>车上点烟器取电<br><img src="/2017/12/10/车辆定位系统/new image - 0vq0k.jpg" alt=""><br>隐蔽的天线位置，，GPS信号有点影响，但整体还好，为了不影响美观，不想到处拉线<br>（GPS的天线拉到前挡风玻璃下面，效果很好，为了保持整洁，，都藏起来，，哈哈）<br><img src="/2017/12/10/车辆定位系统/new image - 9xzau.jpg" alt=""></p>
 <p>最终在手机上看到车辆轨迹效果图<br><img src="/2017/12/10/车辆定位系统/carTrail.jpg" alt=""></p>
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2017年12月10日 22:04</p>
+        <p>最后更新： 2017年12月10日 22:05</p>
         <p>原始链接： <a class="post-url" href="/2017/12/10/车辆定位系统/" title="车辆定位系统">http://calmtree.cn/2017/12/10/车辆定位系统/</a></p>
         <footer>
             <a href="http://calmtree.cn">
