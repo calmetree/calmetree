@@ -8,13 +8,13 @@
   
     <meta name="keywords" content="calmet,calmet's Blog" />
   
-  <meta name="description" content="本文准备从下面几个方面介绍一下DSP  硬件结构特点（架构，总线，扩展，加速器，中断） 指令特点 软件系统RTOS特点 CEVA DSP特点顺序可能会调整">
+  <meta name="description" content="本文准备从下面几个方面介绍一下DSP  硬件结构特点（架构，总线，扩展，加速器，中断） 指令特点 软件系统RTOS特点 内存管理 陷阱及定点注意事项顺序可能会调整">
 <meta name="keywords" content="技术">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DSP特点漫谈">
 <meta property="og:url" content="http://calmtree.cn/2017/11/21/DSP特点漫谈/index.html">
 <meta property="og:site_name" content="calmet&#39;s Blog">
-<meta property="og:description" content="本文准备从下面几个方面介绍一下DSP  硬件结构特点（架构，总线，扩展，加速器，中断） 指令特点 软件系统RTOS特点 CEVA DSP特点顺序可能会调整">
+<meta property="og:description" content="本文准备从下面几个方面介绍一下DSP  硬件结构特点（架构，总线，扩展，加速器，中断） 指令特点 软件系统RTOS特点 内存管理 陷阱及定点注意事项顺序可能会调整">
 <meta property="og:image" content="http://calmtree.cn/2017/11/21/DSP特点漫谈/harval.png">
 <meta property="og:image" content="http://calmtree.cn/2017/11/21/DSP特点漫谈/arch_x1622.png">
 <meta property="og:image" content="http://calmtree.cn/2017/11/21/DSP特点漫谈/arch_TL420.png">
@@ -29,10 +29,10 @@
 <meta property="og:image" content="http://calmtree.cn/2017/11/21/DSP特点漫谈/instructions.PNG">
 <meta property="og:image" content="http://calmtree.cn/2017/11/21/DSP特点漫谈/sature.PNG">
 <meta property="og:image" content="http://calmtree.cn/2017/11/21/DSP特点漫谈/fixed.PNG">
-<meta property="og:updated_time" content="2017-12-10T08:37:04.250Z">
+<meta property="og:updated_time" content="2017-12-10T08:40:11.557Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DSP特点漫谈">
-<meta name="twitter:description" content="本文准备从下面几个方面介绍一下DSP  硬件结构特点（架构，总线，扩展，加速器，中断） 指令特点 软件系统RTOS特点 CEVA DSP特点顺序可能会调整">
+<meta name="twitter:description" content="本文准备从下面几个方面介绍一下DSP  硬件结构特点（架构，总线，扩展，加速器，中断） 指令特点 软件系统RTOS特点 内存管理 陷阱及定点注意事项顺序可能会调整">
 <meta name="twitter:image" content="http://calmtree.cn/2017/11/21/DSP特点漫谈/harval.png">
   
   
@@ -151,11 +151,12 @@
 <li>硬件结构特点（架构，总线，扩展，加速器，中断）</li>
 <li>指令特点</li>
 <li>软件系统RTOS特点</li>
-<li>CEVA DSP特点<br>顺序可能会调整<a id="more"></a>
-<h3 id="硬件结构特点（架构，总线，扩展，加速器，中断）"><a href="#硬件结构特点（架构，总线，扩展，加速器，中断）" class="headerlink" title="硬件结构特点（架构，总线，扩展，加速器，中断）"></a>硬件结构特点（架构，总线，扩展，加速器，中断）</h3>当前主流CPU架构（比如PC）实际上在内存里，指令和数据是在一起的。<br>而在CPU内的缓存中，还是会区分指令缓存和数据缓存，最终执行的时候，指令和数据是从两个不同的地方出来的。你可以理解为在CPU外部，采用的是冯诺依曼模型，而在CPU内部用的是哈佛结构。</li>
+<li>内存管理</li>
+<li>陷阱及定点注意事项<br>顺序可能会调整<a id="more"></a>
+<h3 id="硬件结构特点（架构，总线，扩展，加速器，中断）"><a href="#硬件结构特点（架构，总线，扩展，加速器，中断）" class="headerlink" title="硬件结构特点（架构，总线，扩展，加速器，中断）"></a>硬件结构特点（架构，总线，扩展，加速器，中断）</h3></li>
 </ol>
+<h4 id="DSP-总线多，存储分离（哈佛结构VS冯诺依曼结构）"><a href="#DSP-总线多，存储分离（哈佛结构VS冯诺依曼结构）" class="headerlink" title="DSP: 总线多，存储分离（哈佛结构VS冯诺依曼结构）"></a>DSP: 总线多，存储分离（哈佛结构VS冯诺依曼结构）</h4><p><img src="/2017/11/21/DSP特点漫谈/harval.png" alt=""><br>当前主流CPU架构（比如PC）实际上在内存里，指令和数据是在一起的。<br>而在CPU内的缓存中，还是会区分指令缓存和数据缓存，最终执行的时候，指令和数据是从两个不同的地方出来的。你可以理解为在CPU外部，采用的是冯诺依曼模型，而在CPU内部用的是哈佛结构。</p>
 <p>大部分的DSP都没有缓存，因而直接就是哈佛结构。<br>哈佛结构设计复杂，但效率高。冯诺依曼结构则比较简单，但也比较慢。<br>CPU厂商为了提高处理速度，在CPU内增加了高速缓存。也基于同样的目的，区分了指令缓存和数据缓存。</p>
-<h4 id="DSP-总线多，存储分离（哈佛结构VS冯诺依曼结构）"><a href="#DSP-总线多，存储分离（哈佛结构VS冯诺依曼结构）" class="headerlink" title="DSP: 总线多，存储分离（哈佛结构VS冯诺依曼结构）"></a>DSP: 总线多，存储分离（哈佛结构VS冯诺依曼结构）</h4><p><img src="/2017/11/21/DSP特点漫谈/harval.png" alt=""></p>
 <h4 id="“哈佛结构设计复杂，但效率高。冯诺依曼结构则比较简单，但也比较慢。”"><a href="#“哈佛结构设计复杂，但效率高。冯诺依曼结构则比较简单，但也比较慢。”" class="headerlink" title="“哈佛结构设计复杂，但效率高。冯诺依曼结构则比较简单，但也比较慢。”"></a>“哈佛结构设计复杂，但效率高。冯诺依曼结构则比较简单，但也比较慢。”</h4><p>下面是CEVA x1622的结构框图<br><img src="/2017/11/21/DSP特点漫谈/arch_x1622.png" alt=""><br>CEVA TL420的结构图<br><img src="/2017/11/21/DSP特点漫谈/arch_TL420.png" alt=""><br>CEVA xc321的结构图<br><img src="/2017/11/21/DSP特点漫谈/arch_xc321.png" alt=""><br>最后是古老的teaklite的结构图<br><img src="/2017/11/21/DSP特点漫谈/arch_tl.png" alt=""></p>
 <h4 id="从架构图上看，数据总线，代码总线是分立得比较清晰的"><a href="#从架构图上看，数据总线，代码总线是分立得比较清晰的" class="headerlink" title="从架构图上看，数据总线，代码总线是分立得比较清晰的"></a>从架构图上看，数据总线，代码总线是分立得比较清晰的</h4><p>再看看上面几款DSP的寄存器配置设计情况<br><img src="/2017/11/21/DSP特点漫谈/register.PNG" alt=""></p>
 <h4 id="结合前面的架构，以及下面的寄存器配置-X1622的数据处理能明显强出很多！"><a href="#结合前面的架构，以及下面的寄存器配置-X1622的数据处理能明显强出很多！" class="headerlink" title="结合前面的架构，以及下面的寄存器配置,X1622的数据处理能明显强出很多！"></a>结合前面的架构，以及下面的寄存器配置,X1622的数据处理能明显强出很多！</h4><h3 id="软件系统“RTOS”特点"><a href="#软件系统“RTOS”特点" class="headerlink" title="软件系统“RTOS”特点"></a>软件系统“RTOS”特点</h3><p>考虑如下情况，存在4个不同高低优先级的任务（分别从高到低为1，2，3，4），<br>任务1和任务4会使用同一不可抢占资源A，比如光驱/串口。<br>正常能胜任此类任务管理的RTOS系统，需要像如下调度：<br><img src="/2017/11/21/DSP特点漫谈/rtos1.PNG" alt=""><br>CEVA DSP可以port FreeRTOS作为系统，但是会裁剪掉很多功能模块<br>不擅长复杂场景调度，但支持优先级抢占，实时！<br><img src="/2017/11/21/DSP特点漫谈/rtos2.PNG" alt=""><br>之前的场景，通常DSP只能调度出如下结果：<br><img src="/2017/11/21/DSP特点漫谈/rtos3.PNG" alt=""><br>但是：Task4/1如果是对同一资源的操作，映射为同一个中断事件，则能解决问题！</p>
@@ -180,7 +181,7 @@
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2017年12月10日 16:37</p>
+        <p>最后更新： 2017年12月10日 16:40</p>
         <p>原始链接： <a class="post-url" href="/2017/11/21/DSP特点漫谈/" title="DSP特点漫谈">http://calmtree.cn/2017/11/21/DSP特点漫谈/</a></p>
         <footer>
             <a href="http://calmtree.cn">
@@ -218,7 +219,8 @@
 硬件结构特点（架构，总线，扩展，加速器，中断）
 指令特点
 软件系统RTOS特点
-CEVA DSP特点顺序可能会调整" data-title="QQ">
+内存管理
+陷阱及定点注意事项顺序可..." data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
