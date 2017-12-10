@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>车辆定位系统 | calmet&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="calmet,calmet's Blog" />
+  
+  <meta name="description" content="Arduino+GPRS.GPS.module+raspberry.PI实现车辆实时位置跟踪并微信端显示">
+<meta property="og:type" content="article">
+<meta property="og:title" content="车辆定位系统">
+<meta property="og:url" content="http://calmtree.cn/2017/12/10/车辆定位系统/index.html">
+<meta property="og:site_name" content="calmet&#39;s Blog">
+<meta property="og:description" content="Arduino+GPRS.GPS.module+raspberry.PI实现车辆实时位置跟踪并微信端显示">
+<meta property="og:image" content="http://calmtree.cn/2017/12/10/车辆定位系统/new%20image%20-%20wydgq.jpg">
+<meta property="og:image" content="http://calmtree.cn/2017/12/10/车辆定位系统/new%20image%20-%20sx9wv.jpg">
+<meta property="og:image" content="http://calmtree.cn/2017/12/10/车辆定位系统/new%20image%20-%201nfj9.jpg">
+<meta property="og:image" content="http://calmtree.cn/2017/12/10/车辆定位系统/new%20image%20-%200vq0k.jpg">
+<meta property="og:image" content="http://calmtree.cn/2017/12/10/车辆定位系统/new%20image%20-%209xzau.jpg">
+<meta property="og:image" content="http://calmtree.cn/2017/12/10/车辆定位系统/carTrail.jpg">
+<meta property="og:updated_time" content="2017-12-10T13:57:07.744Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="车辆定位系统">
+<meta name="twitter:description" content="Arduino+GPRS.GPS.module+raspberry.PI实现车辆实时位置跟踪并微信端显示">
+<meta name="twitter:image" content="http://calmtree.cn/2017/12/10/车辆定位系统/new%20image%20-%20wydgq.jpg">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+  
+
+</head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">calmet&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        calmet&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        日常点滴
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="calmet" target="_blank" href="//calmet.space">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-车辆定位系统" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      车辆定位系统
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2017-12-10
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>Arduino+GPRS.GPS.module+raspberry.PI<br>实现车辆实时位置跟踪并微信端显示<br><a id="more"></a><br>Arduino+GPRS.GPS.module+raspberry.PI trail the car position<br>源码参见github:<a href="https://github.com/calmetree/carTrail.git" target="_blank" rel="external">https://github.com/calmetree/carTrail.git</a></p>
+<p>server.py/updateCarPOs.py 利用树莓派做服务器接收GPS位置信息</p>
+<p>showCarPos.py 后端准备好当天的位置数据到html静态文件中（历史数据通过mysql数据库保存）</p>
+<p>showCarPos.html静态文件，利用前端百度api绘出当天车俩轨迹地图，通过树莓派假设的nginx静态服务器提供外部访问。</p>
+<p>carPos.ino 为arduino控制GRPS.GPS模块对应源代码</p>
+<p>搭建系统使用到的各种神器<br>arduino跟GPS/GPRS模块(UART连接)<br><img src="/2017/12/10/车辆定位系统/new image - wydgq.jpg" alt=""><br>GPRS/GPS模块装盒子里特写<br><img src="/2017/12/10/车辆定位系统/new image - sx9wv.jpg" alt=""><br>封装到盒子里，丑陋的线都遮挡起来<br><img src="/2017/12/10/车辆定位系统/new image - 1nfj9.jpg" alt=""><br>车上点烟器取电<br><img src="/2017/12/10/车辆定位系统/new image - 0vq0k.jpg" alt=""><br>隐蔽的天线位置，，GPS信号有点影响，但整体还好，为了不影响美观，不想到处拉线<br>（GPS的天线拉到前挡风玻璃下面，效果很好，为了保持整洁，，都藏起来，，哈哈）<br><img src="/2017/12/10/车辆定位系统/new image - 9xzau.jpg" alt=""></p>
+<p>最终在手机上看到车辆轨迹效果图<br><img src="/2017/12/10/车辆定位系统/carTrail.jpg" alt=""></p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2017年12月10日 21:57</p>
+        <p>原始链接： <a class="post-url" href="/2017/12/10/车辆定位系统/" title="车辆定位系统">http://calmtree.cn/2017/12/10/车辆定位系统/</a></p>
+        <footer>
+            <a href="http://calmtree.cn">
+                <img src="/images/logo.png" alt="calmet">
+                calmet
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://calmtree.cn/2017/12/10/车辆定位系统/&title=《车辆定位系统》 — calmet's Blog&pic=images/carTrail.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://calmtree.cn/2017/12/10/车辆定位系统/&title=《车辆定位系统》 — calmet's Blog&source=Arduino+GPRS.GPS.module+raspberry.PI实现车辆实时位置跟踪并微信端显示" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://calmtree.cn/2017/12/10/车辆定位系统/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《车辆定位系统》 — calmet's Blog&url=http://calmtree.cn/2017/12/10/车辆定位系统/&via=http://calmtree.cn" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://calmtree.cn/2017/12/10/车辆定位系统/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://calmtree.cn/2017/12/10/车辆定位系统/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2017/11/21/DSP特点漫谈/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">DSP特点漫谈</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2017 calmet<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://calmtree.cn",
+      animate: true,
+      isHome: false,
+      share: true
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/学习/">学习</a><a class="category-link" href="/categories/技术/">技术</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/技术/" style="font-size: 20px;">技术</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/技术/" style="font-size: 20px;">技术</a> <a href="/tags/生活/" style="font-size: 10px;">生活</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+  </div>
+</body>
+</html>
