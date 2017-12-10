@@ -15,10 +15,25 @@
 <meta property="og:url" content="http://calmtree.cn/2017/11/21/DSP特点漫谈/index.html">
 <meta property="og:site_name" content="calmet&#39;s Blog">
 <meta property="og:description" content="本文准备从下面几个方面介绍一下DSP  硬件结构特点（架构，总线，扩展，加速器，中断） 指令特点 软件系统RTOS特点 CEVA DSP特点顺序可能会调整">
-<meta property="og:updated_time" content="2017-11-21T11:56:26.856Z">
+<meta property="og:image" content="http://calmtree.cn/2017/11/21/DSP特点漫谈/harval.png">
+<meta property="og:image" content="http://calmtree.cn/2017/11/21/DSP特点漫谈/arch_x1622.png">
+<meta property="og:image" content="http://calmtree.cn/2017/11/21/DSP特点漫谈/arch_TL420.png">
+<meta property="og:image" content="http://calmtree.cn/2017/11/21/DSP特点漫谈/arch_xc321.png">
+<meta property="og:image" content="http://calmtree.cn/2017/11/21/DSP特点漫谈/arch_tl.png">
+<meta property="og:image" content="http://calmtree.cn/2017/11/21/DSP特点漫谈/register.PNG">
+<meta property="og:image" content="http://calmtree.cn/2017/11/21/DSP特点漫谈/rtos1.PNG">
+<meta property="og:image" content="http://calmtree.cn/2017/11/21/DSP特点漫谈/rtos2.PNG">
+<meta property="og:image" content="http://calmtree.cn/2017/11/21/DSP特点漫谈/rtos3.PNG">
+<meta property="og:image" content="http://calmtree.cn/2017/11/21/DSP特点漫谈/memory1.png">
+<meta property="og:image" content="http://calmtree.cn/2017/11/21/DSP特点漫谈/swap.png">
+<meta property="og:image" content="http://calmtree.cn/2017/11/21/DSP特点漫谈/instructions.PNG">
+<meta property="og:image" content="http://calmtree.cn/2017/11/21/DSP特点漫谈/sature.PNG">
+<meta property="og:image" content="http://calmtree.cn/2017/11/21/DSP特点漫谈/fixed.PNG">
+<meta property="og:updated_time" content="2017-12-10T08:37:04.250Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DSP特点漫谈">
 <meta name="twitter:description" content="本文准备从下面几个方面介绍一下DSP  硬件结构特点（架构，总线，扩展，加速器，中断） 指令特点 软件系统RTOS特点 CEVA DSP特点顺序可能会调整">
+<meta name="twitter:image" content="http://calmtree.cn/2017/11/21/DSP特点漫谈/harval.png">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -137,16 +152,35 @@
 <li>指令特点</li>
 <li>软件系统RTOS特点</li>
 <li>CEVA DSP特点<br>顺序可能会调整<a id="more"></a>
-<h3 id="硬件结构特点（架构，总线，扩展，加速器，中断）"><a href="#硬件结构特点（架构，总线，扩展，加速器，中断）" class="headerlink" title="硬件结构特点（架构，总线，扩展，加速器，中断）"></a>硬件结构特点（架构，总线，扩展，加速器，中断）</h3>DSP芯片具有以下特点：<br>（1）多总线结构。DSP芯片内部一般采用的是哈佛结构，其主要特点是将程序和数据存储在不同的存储空间，每个存储器独立编址，独立访问。在片内有相应的程序总线和数据总线，程序总线和数据总线可以允许同时获取指令字和操作数，而互不干涉。这意味着在一个机器周期内可以同时准备好指令和操作数，从而使数据的吞吐率提高了1倍。为了进一步提高运行速度和灵活性，DSP也采用了改进的哈佛结构和超级哈佛结构。<br>（2）流水线操作。流水线操作技术使两个或更多不同的操作可以重叠执行，从而在不减小时钟周期的条件下缩短了每条指令的执行时间，增强了处理器的数据处理能力。要执行一条DSP指令，需要通过取指令、指令译码、取操作数和执行指令等若干阶段，每一阶段称为一级流水。DSP的流水线操作是指它的这几个阶段在程序执行过程中是重叠的，在执行本条指令的同时，下面的几条指令已依次完成了取指令、解码、取操作数的操作。<br>（3）专用的硬件乘法器。硬件乘法器的功能是在一个指令周期内完成一次乘法运算，是DSP实现快速运算的重要保证。可以说几乎所有的DSP器件内部都有硬件乘法器。<br>（4）特殊的DSP指令。数字信号处理器芯片为了对数字信号进行更为高效、快速的处理，专门设计了一套相应的特殊指令。这些特殊指令节省了指令的条数，缩短了指令的执行时间，提高了运算速度。<br>（5）多机并行运行特性。DSP芯片的单机处理能力是有限的，而随着DSP芯片价格的不断降低和应用的广泛，多个DSP芯片并行处理已成为可能，可以运用这一特性，达到良好的高速实时处理的要求。<br>（6）快速的指令周期。随着的不断发展，DSP芯片采用了CMOS技术、先进的工艺和集成电路的优化设计，工作电压的下降，使得DSP芯片的主频不断提高。这一变化将随着微电子技术的不断进步而继续提高。<br>（7）低功耗。随着微电子产品在人类日常生活中所占得比重越来越大，DSP的应用领域得到了巨大的拓展。DSP应用这么广泛，那么降低功耗对于电力资源紧缺产生十分重要的意义。这对DSP的发展也起到了巨大的作用。<br>（8）高的运算精度。浮点DSP提供了大的动态范围，定点DSP的字长也能达到32位，有的累加器达到40位。<h3 id="指令特点"><a href="#指令特点" class="headerlink" title="指令特点"></a>指令特点</h3></li>
+<h3 id="硬件结构特点（架构，总线，扩展，加速器，中断）"><a href="#硬件结构特点（架构，总线，扩展，加速器，中断）" class="headerlink" title="硬件结构特点（架构，总线，扩展，加速器，中断）"></a>硬件结构特点（架构，总线，扩展，加速器，中断）</h3>当前主流CPU架构（比如PC）实际上在内存里，指令和数据是在一起的。<br>而在CPU内的缓存中，还是会区分指令缓存和数据缓存，最终执行的时候，指令和数据是从两个不同的地方出来的。你可以理解为在CPU外部，采用的是冯诺依曼模型，而在CPU内部用的是哈佛结构。</li>
 </ol>
-<p>DSP的特点<br>对于没有使用过DSP的初学者来说，第一个困惑就是DSP其他的嵌入式处理器究竟有什么不同，它和单片机，ARM有什么区别。事实上，DSP也是一种嵌入式处理器，它完全可以完成单片机的功能。<br>唯一的重要的区别在于DSP支持单时钟周期的”乘-加”运算。这几乎是所有厂家的DSP芯片的一个共有特征。几乎所有的DSP处理器的指令集中都会有一条MAC指令，这条指令可以把两个操作数从RAM中取出相乘，然后加到一个累加器中，所有这些操作都在一个时钟周期内完成。拥有这样一条指令的处理器就具备了DSP功能。<br>具有这条指令就称之为数字信号处理器的原因在于，所有的数字信号处理算法中最为常见的算术操作就是”乘-加”。这是因为数字信号处理中大量使用了内积，或称”点积”的运算。无论是FIR滤波，FFT，信号相关，数字混频，下变频。所有这些数字信号处理的运算经常是将输入信号与一个系数表或者与一个本地参考信号相乘然后积分（累加），这就表现为将两个向量（或称序列）进行点积，在编程上就变成将输入的采样放在一个循环buffer里，本地的系数表或参考信号也放在一个buffer里，然后使用两个指针指向这两个buffer。这样就可以在一个loop里面使用一个MAC指令将二者进行点积运算。这样的点积运算对与处理器来说是最快的，因为仅需一个始终周期就可以完成一次乘加。<br>了解DSP的这一特点后，当我们设计一个嵌入式系统时，首先要考虑处理器所实现的算法中是否有点积运算，即是否要经常进行两个数组的乘加，（记住数字滤波，相关等都表现为两个数组的点积）如果有的话，每秒要做多少次，这样就能够决定是否采用DSP，采用多高性能的DSP了。<br>浮点与定点<br>浮点与定点也是经常是初学者困惑的问题，在选择DSP器件的时候，是采用浮点还是采用定点，如果用定点是16位还是32位？其实这个问题和你的算法所要求的信号的动态范围有关。<br>定点的计算不过是把一个数据当作整数来处理，通常AD采样来的都是整数，这个数相对于真实的模拟信号有一个刻度因子，大家都知道用一个16位的AD去采样一个0到5V的信号，那么AD输出的整数除以2^16再乘以5V就是对应的电压。在定点DSP中是直接对这个16位的采样进行处理，并不将它转换成以小数表示的电压，因为定点DSP无法以足够的精度表示一个小数，它只能对整数进行计算。<br>而浮点DSP的优势在于它可以把这个采样得到的整数转换成小数表示的电压，并不损失精度（这个小数用科学记数法来表示），原因在于科学记数法可以表示很大的动态范围的一个信号，以IEEE754浮点数为例，<br>单精度浮点格式： [31] </p>
-<p>1位符号 [30-23]8位指数 [22-00]23位小数<br>这样的能表示的最小的数是+-2^-149,最大的数是+-（2-2^23)<em>2^127.动态范围为20</em>log(最大的数/最小的数）=1667.6dB 这样大的动态范围使得我们在编程的时候几乎不必考虑乘法和累加的溢出，而如果使用定点处理器编程，对计算结果进行舍入和移位则是家常便饭，这在一定程度上会损失是精度。原因在于定点处理处理的信号的动态范围有限，比如16位定点DSP，可以表示整数范围为1-65536，其动态范围为20<em>log(65536/1)=96dB.对于32定点DSP，动态范围为20</em>log(2^32/1)=192dB,远小于32位ieee浮点数的1667.6dB,但是，实际上192dB对绝大多数应用所处理的信号已经足够了。<br>由于AD转换器的位数限制，一般输入信号的动态范围都比较小，但在DSP的信号处理中，由于点积运算会使中间节点信号的动态范围增加，所以主要考虑信号处理流程中中间结果的动态范围，以及算法对中间结果的精度要求，来选择相应的DSP。另外就是浮点的DSP更易于编程，定点DSP编程中程序员要不断调整中间结果的P，Q值，实际就是不断对中间结果进行移位调整和舍入。<br>DSP与RTOS<br>TI的CCS提供BIOS，ADI的VDSP提供VDK，都是基于各自DSP的嵌入式多任务内核。DSP编程可以用单用C，也可以用汇编，或者二者结合，一般软件编译工具都提供了很好的支持。我不想在这里多说BIOS，VDK怎么用这在相应的文档里说的很详细。我想给初学者说说DSP的RTOS原理。用短短几段话说这个复杂的东西也是挑战！<br>其实DSP的RTOS和基于其他处理器的通用RTOS没什么大的区别，现在几乎人人皆知的uCOSii也很容易移植到DSP上来，只要把寄存器保存与恢复部分和堆栈部分改改就可以。一般在用BIOS和VDK之前，先看看操作系统原理的书比较好。uCOS那本书也不错。<br>BIOS和VDK其实是一个RTOS内核函数集，DSP的应用程序会和这些函数连接成一个可执行文件。其实实现一个简单的多任务内核并不复杂，首先定义好内核的各种数据结构，然后写一个scheduler函数，功能是从所有就绪任务中（通过查找就绪任务队列或就绪任务表）找出优先级最高的任务，并恢复其执行。然后在此基础上写几个用于任务间通信的函数就可以了，比如event,message box,等等。<br>RTOS一般采用抢先式的任务调度方式，举例说当任务A等待的资源available的时候,DSP会执行一个任务调度函数scheduler,这个函数会检查当前任务是否比任务A优先级低，如果是的话，就会把它当前挂起，然后把任务A保存在堆栈里寄存器值全部pop到DSP处理器中(这就是所谓的任务现场恢复）。接着scheduler还会把从堆栈中取出任务A挂起时的程序执行的地址，pop到PC，使任务A继续执行。这样当前 </p>
-<p>任务就被任务A抢先了。<br>使用RTOS之后，每个任务都会有一个主函数，这个函数的起始地址就是该任务的入口。一般每个任务的主函数里有一个死循环，这个循环使该任务周期地执行，完成一部分算法模块的功能，其实这个函数跟普通函数没任何区别，类似于C语言中的main函数。一个任务创建的时候，RTOS会把这个函数入口地址压入任务的堆栈中，好象这个函数（任务）刚发生过一次中断一样。一旦这个新创建任务的优先级在就绪队列中是最高的，RTOS就会从其堆栈中弹出其入口地址开始执行。<br>有一个疑问是，不使用RTOS，而是简单使用一个主循环在程序中调用各个函数模块，一样可以实现软件的调度执行。那么，这种常用的方法与使用RTOS相比有什么区别呢？其实，使用主循环的方法不过是一种没有优先级的顺序执行的调度策略而已。这种方法的缺点在于，主循环中调用的各个函数是顺序执行的，那么，即使是一个无关紧要的函数（比如闪烁一个LED），只要他不主动返回，也会一直执行直到结束，这时，如果发生一个重要的事件（比如DMA buffer full 中断)，就会得不到及时的响应和处理，只能等到那个闪烁LED的函数执行完毕。这样就使整个DSP处理的优先次序十分不合理。而在使用了RTOS之后，当一个重要的事件发生时，中断处理会进入RTOS，并调用scheduler,这时scheduler 会让处理这一事件的任务抢占DSP处理器（因为它的优先级高）。而哪个闪烁LED任务即使晚执行几毫秒都没任何影响。这样整个DSP的调度策略就十分合理。<br>RTOS要说的内容太多，我只能讲一下自己的一点体会吧<br>DSP与正（余）弦波<br>在DSP的应用中，我们经常要用到三角函数，或者合成一个正（余）弦波。这是因为我们喜欢把信号通过傅立叶变换映射到三角函数空间来理解信号的频率特性。信号处理的一些计算技巧都需要在DSP软件中进行三角函数计算。然而三角函数计算是非线性的计算，DSP并没有专门的指令来求一个数的正弦或余弦。于是我们需要用线性方法来近似求解。<br>一个直接的想法是用多项式拟合，这也正是大多数DSP C编译器提供正余弦库函数所采用的方法。其原理是把三角函数向函数空间{1，x,x^2,x^3….}上投影，从而获得一系列的系数，用这些系数就可以拟合出三角函数。比如，我们在[0，pi/2]区间上拟合sin,只需在matlab中输入以下命令：<br>x=0:0.05:pi/2;<br>p=polyfit(x,sin(x),5)<br>就得到5阶的多项式系数：<br>p =<br>0.00581052047605 0.00580963216172 -0.17193865685360<br>0.00209002716293 0.99969270087312 0.00000809543448<br>于是在[0，pi/2]区间上：<br>sin(x)= 0.00000809543448+0.99969270087312<em>x+ 0.00209002716293</em>x^2-0.17193865685360*x^3+<br>0.005809632161 </p>
-<p>72<em>x^4+0.00581052047605</em>x^5<br>于是在DSP程序中，我们可以通过用乘加（MAC）指令计算这个多项式来近似求得sin(x)<br>当然如果用定点DSP还要把P这个多项式系数表用一定的Q值来改写成定点数。<br>这样的三角函数计算一般都需要几十个cycle 的开销。这对于某些场合是不能容忍的。<br>另一种更快的方法是借助于查表，比如，我们将[0，pi/2]分成32个区间，每个区间长度就为pi/64,在每个区间上我们使用直线段拟合sin曲线，每个区间线段起点的正弦值和线段斜率事先算好，存在RAM里，这样就需要在在RAM里存储64个<br>常数：<br>32个起点的精确的正弦值（事先算好）： s[32]={0,sin(pi/64),sin(pi/32),sin(pi/16)….}<br>32个线段的斜率： f[32]={0.049,…..}<br>对于输入的每一个x,先根据其大小找到所在区间i，通常x用定点表示，一般取其高几位就是系数i了，然 后通过下式即可求出sin(x)：<br>sin(x)= s[i]*f[i]<br>这样一般只需几个CYCLE就可以算出正弦值，如果需要更高的精度，可以将区间分得更细，当然，也就需 要更多的RAM去存储常数表。<br>事实上，不仅三角函数，其他的各种非线性函数都是这样近似计算的。<br>以上信息源于ickey网站技术</p>
-<h3 id="软件系统RTOS特点"><a href="#软件系统RTOS特点" class="headerlink" title="软件系统RTOS特点"></a>软件系统RTOS特点</h3><h3 id="CEVA-DSP特点"><a href="#CEVA-DSP特点" class="headerlink" title="CEVA DSP特点"></a>CEVA DSP特点</h3>
+<p>大部分的DSP都没有缓存，因而直接就是哈佛结构。<br>哈佛结构设计复杂，但效率高。冯诺依曼结构则比较简单，但也比较慢。<br>CPU厂商为了提高处理速度，在CPU内增加了高速缓存。也基于同样的目的，区分了指令缓存和数据缓存。</p>
+<h4 id="DSP-总线多，存储分离（哈佛结构VS冯诺依曼结构）"><a href="#DSP-总线多，存储分离（哈佛结构VS冯诺依曼结构）" class="headerlink" title="DSP: 总线多，存储分离（哈佛结构VS冯诺依曼结构）"></a>DSP: 总线多，存储分离（哈佛结构VS冯诺依曼结构）</h4><p><img src="/2017/11/21/DSP特点漫谈/harval.png" alt=""></p>
+<h4 id="“哈佛结构设计复杂，但效率高。冯诺依曼结构则比较简单，但也比较慢。”"><a href="#“哈佛结构设计复杂，但效率高。冯诺依曼结构则比较简单，但也比较慢。”" class="headerlink" title="“哈佛结构设计复杂，但效率高。冯诺依曼结构则比较简单，但也比较慢。”"></a>“哈佛结构设计复杂，但效率高。冯诺依曼结构则比较简单，但也比较慢。”</h4><p>下面是CEVA x1622的结构框图<br><img src="/2017/11/21/DSP特点漫谈/arch_x1622.png" alt=""><br>CEVA TL420的结构图<br><img src="/2017/11/21/DSP特点漫谈/arch_TL420.png" alt=""><br>CEVA xc321的结构图<br><img src="/2017/11/21/DSP特点漫谈/arch_xc321.png" alt=""><br>最后是古老的teaklite的结构图<br><img src="/2017/11/21/DSP特点漫谈/arch_tl.png" alt=""></p>
+<h4 id="从架构图上看，数据总线，代码总线是分立得比较清晰的"><a href="#从架构图上看，数据总线，代码总线是分立得比较清晰的" class="headerlink" title="从架构图上看，数据总线，代码总线是分立得比较清晰的"></a>从架构图上看，数据总线，代码总线是分立得比较清晰的</h4><p>再看看上面几款DSP的寄存器配置设计情况<br><img src="/2017/11/21/DSP特点漫谈/register.PNG" alt=""></p>
+<h4 id="结合前面的架构，以及下面的寄存器配置-X1622的数据处理能明显强出很多！"><a href="#结合前面的架构，以及下面的寄存器配置-X1622的数据处理能明显强出很多！" class="headerlink" title="结合前面的架构，以及下面的寄存器配置,X1622的数据处理能明显强出很多！"></a>结合前面的架构，以及下面的寄存器配置,X1622的数据处理能明显强出很多！</h4><h3 id="软件系统“RTOS”特点"><a href="#软件系统“RTOS”特点" class="headerlink" title="软件系统“RTOS”特点"></a>软件系统“RTOS”特点</h3><p>考虑如下情况，存在4个不同高低优先级的任务（分别从高到低为1，2，3，4），<br>任务1和任务4会使用同一不可抢占资源A，比如光驱/串口。<br>正常能胜任此类任务管理的RTOS系统，需要像如下调度：<br><img src="/2017/11/21/DSP特点漫谈/rtos1.PNG" alt=""><br>CEVA DSP可以port FreeRTOS作为系统，但是会裁剪掉很多功能模块<br>不擅长复杂场景调度，但支持优先级抢占，实时！<br><img src="/2017/11/21/DSP特点漫谈/rtos2.PNG" alt=""><br>之前的场景，通常DSP只能调度出如下结果：<br><img src="/2017/11/21/DSP特点漫谈/rtos3.PNG" alt=""><br>但是：Task4/1如果是对同一资源的操作，映射为同一个中断事件，则能解决问题！</p>
+<h3 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h3><p>对于数据和代码分开的哈弗结构，要实现动态内存管理（回收）机制，复杂度太高。<br>一般不建议在DSP的阉割OS上做此类“操作”，而采用预先规划，划分的机制！<br>即：通常不支持malloc/free操作<br>看个实例：<br><img src="/2017/11/21/DSP特点漫谈/memory1.png" alt=""></p>
+<h4 id="内存管理—swap-overlay"><a href="#内存管理—swap-overlay" class="headerlink" title="内存管理—swap/overlay"></a>内存管理—swap/overlay</h4><p>基于数据和代码分开存放/管理的特征，<br>将数据段作为介质存放代码，运行代码前load所需代码，<br>或者反之<br><img src="/2017/11/21/DSP特点漫谈/swap.png" alt=""></p>
+<h3 id="指令特点"><a href="#指令特点" class="headerlink" title="指令特点"></a>指令特点</h3><ol>
+<li>VSID-SMID(VLIW: Very Long Instruction Word, SIMD: Single Instruction Multiple Data)<br>长指令，多数据单指令</li>
+<li>对密集乘法的支持(MAC)<br>专门的硬件实现单周期乘法。专门的累加器寄存器处理多个乘积和，累加寄存器比其他寄存器宽，增加额外Bits避免溢出.(但是需要注意编程陷阱)</li>
+<li>零开销循环<br>DSP算法普遍共同点特点：大多数处理时间花在执行较小的循环上。</li>
+<li>针对行业应用提供专用特殊指令，节省执行时间。</li>
+<li>流水线并行操作(多少并行依赖于具体的DSP实现)</li>
+<li>通常只支持定点操作，需要对代码进行定点化。<br>看个并行的实例<br><img src="/2017/11/21/DSP特点漫谈/instructions.PNG" alt=""><br>前后规划合理，可以保持一拍并行做4个字节的乘累加并且不中断！<h4 id="累加寄存器符号扩展编程陷阱（例子X1622）"><a href="#累加寄存器符号扩展编程陷阱（例子X1622）" class="headerlink" title="累加寄存器符号扩展编程陷阱（例子X1622）"></a>累加寄存器符号扩展编程陷阱（例子X1622）</h4><img src="/2017/11/21/DSP特点漫谈/sature.PNG" alt=""><h4 id="定点化注意事项"><a href="#定点化注意事项" class="headerlink" title="定点化注意事项"></a>定点化注意事项</h4>定点：通过整数来表示小数和整数<br><img src="/2017/11/21/DSP特点漫谈/fixed.PNG" alt=""><br>• 符号位：0表示正数，1表示负数。<br>• 整数部分：小数点左边的数。<br>• 小数部分：小数点右边的数。</li>
+<li>为了防止数据损失，在未知数据确定范围的情况下，<pre><code>通常左顶格操作，保证最大精度
+</code></pre></li>
+<li>Floor函数，永远向下取整还是绝对值靠0取整？<pre><code>需要特别注意（-1/x永远为-1的问题），
+</code></pre></li>
+<li>除法转移位和乘法</li>
+<li>查表</li>
+<li>多项式，基数展开逼近</li>
+<li>……</li>
+</ol>
+
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2017年11月21日 19:56</p>
+        <p>最后更新： 2017年12月10日 16:37</p>
         <p>原始链接： <a class="post-url" href="/2017/11/21/DSP特点漫谈/" title="DSP特点漫谈">http://calmtree.cn/2017/11/21/DSP特点漫谈/</a></p>
         <footer>
             <a href="http://calmtree.cn">
@@ -234,7 +268,7 @@ CEVA DSP特点顺序可能会调整" data-title="QQ">
 
     <aside class="post-toc-pos post-toc-top" id="post-toc">
         <nav class="post-toc-wrap">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#硬件结构特点（架构，总线，扩展，加速器，中断）"><span class="post-toc-text">硬件结构特点（架构，总线，扩展，加速器，中断）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#指令特点"><span class="post-toc-text">指令特点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#软件系统RTOS特点"><span class="post-toc-text">软件系统RTOS特点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CEVA-DSP特点"><span class="post-toc-text">CEVA DSP特点</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#硬件结构特点（架构，总线，扩展，加速器，中断）"><span class="post-toc-text">硬件结构特点（架构，总线，扩展，加速器，中断）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#DSP-总线多，存储分离（哈佛结构VS冯诺依曼结构）"><span class="post-toc-text">DSP: 总线多，存储分离（哈佛结构VS冯诺依曼结构）</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#“哈佛结构设计复杂，但效率高。冯诺依曼结构则比较简单，但也比较慢。”"><span class="post-toc-text">“哈佛结构设计复杂，但效率高。冯诺依曼结构则比较简单，但也比较慢。”</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#从架构图上看，数据总线，代码总线是分立得比较清晰的"><span class="post-toc-text">从架构图上看，数据总线，代码总线是分立得比较清晰的</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#结合前面的架构，以及下面的寄存器配置-X1622的数据处理能明显强出很多！"><span class="post-toc-text">结合前面的架构，以及下面的寄存器配置,X1622的数据处理能明显强出很多！</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#软件系统“RTOS”特点"><span class="post-toc-text">软件系统“RTOS”特点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#内存管理"><span class="post-toc-text">内存管理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#内存管理—swap-overlay"><span class="post-toc-text">内存管理—swap/overlay</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#指令特点"><span class="post-toc-text">指令特点</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#累加寄存器符号扩展编程陷阱（例子X1622）"><span class="post-toc-text">累加寄存器符号扩展编程陷阱（例子X1622）</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#定点化注意事项"><span class="post-toc-text">定点化注意事项</span></a></li></ol></li></ol>
         </nav>
     </aside>
     
